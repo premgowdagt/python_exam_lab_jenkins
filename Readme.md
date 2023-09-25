@@ -92,3 +92,105 @@ python3 product_list_app.py
 
 The application will be accessible at http://localhost:5070.
 
+
+
+## Containerization with Docker
+
+To containerize the flask application, a Dockerfile file has to be created in the project directory.
+This Dockerfile:
+- Uses the official Python 3.9 image as the base image.
+- Sets the working directory to /app in the container.
+- Copies the current directory (including your Flask application code) into the container.
+- Installs the dependencies specified in requirements.txt (create this file if you haven't).
+- Exposes port 5070 (the port your Flask app is running on).
+- Specifies the command to run your Flask application.
+
+1. Build a Docker Image
+
+In your terminal, navigate to the directory containing your Dockerfile and run the following command to build a Docker image:
+
+```bash
+docker build -t product-list-app .
+```
+- This command builds a Docker image using the Dockerfile in the current directory.
+- The `-t` flag is used to tag the image with a name of your choice. In this case, the image is tagged with the name `product-list-app`.
+- The `.` at the end of the command indicates that the Dockerfile is in the current directory.
+- The build process may take a few minutes to complete. Once it's done, you should see a message indicating that the build was successful.
+- The image is now available locally on your machine. You can view it by running the `docker images` command.
+- This image can be used to create containers that run your Flask application.
+
+2. Create a Docker Container
+
+Now that you have a Docker image, you can use it to create a container that runs your Flask application. To do this, run the following command:
+
+```bash
+docker run -d -p 5070:5070 product-list-app
+```
+- This command creates a container using the `product-list-app` image you built earlier.
+- The `-d` flag is used to run the container in detached mode (in the background).
+- The `-p` flag is used to map the host port 5070 to the container port 5070. This allows you to access the Flask application running inside the container at http://localhost:5070.
+
+3. Testing the Container
+
+The container is now running in the background. You can view it by running the `docker ps` command.
+- You can test it by accessing it through your web browser at http://localhost:5070. If you followed the example Dockerfile above, your Flask app should be accessible on port 5070.
+- You can also use curl or tools like Postman to make HTTP requests to your Flask API endpoints running in the Docker container.
+
+4. Share Your Docker Image
+
+You can share your Docker image with others by pushing it to a Docker registry like Docker Hub. To do this, you need to create a repository on Docker Hub and then push your image to it. This will enable others to pull your image and run it as a container on their machine. Which establishes the concept of containerization.
+
+First create a repository on Docker Hub GUI. Fill in the details for your repository, including a name (e.g., "product-list-app"), a description, and visibility settings (public or private). Then, log in to Docker Hub from your terminal using the following command:
+
+```bash
+docker login
+```
+- This command will prompt you to enter your Docker Hub username and password. Once you've entered them, you should see a message indicating that you've successfully logged in.
+
+Next, before pushing your Docker image to Docker Hub, you need to tag it with the repository name you created. Use the following command to tag your image:
+
+```bash
+docker tag product-list-app <your-docker-hub-username>/product-list-app
+```
+
+- This command tags your Docker image with the name of your Docker Hub username and the name of the repository you created earlier.
+
+You can now push your Docker image to Docker Hub using the following command:
+
+```bash
+docker push <your-docker-hub-username>/product-list-app
+```
+
+- This command pushes your Docker image to Docker Hub. Once the push is complete, you should see a message indicating that the push was successful.
+
+You can now view your Docker image on Docker Hub. You can also pull it from Docker Hub and run it as a container on your machine.
+
+5. Pulling and Running the Docker Image
+
+To pull your Docker image from Docker Hub, use the following command:
+
+```bash
+docker pull <your-docker-hub-username>/product-list-app
+```
+
+- This command pulls your Docker image from Docker Hub and saves it locally on your machine.
+
+You can now run your Docker image as a container using the following command:
+
+```bash
+docker run -d -p 5070:5070 <your-docker-hub-username>/product-list-app
+```
+
+- This command runs your Docker image as a container on your machine. You can access it through your web browser at http://localhost:5070.
+
+That's it! You've containerized your Flask application, and you can now run it on any system that supports Docker.
+
+## Contributing
+
+Feel free to contribute to this project by opening issues or pull requests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+
