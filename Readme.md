@@ -110,7 +110,7 @@ This Dockerfile:
 In your terminal, navigate to the directory containing your Dockerfile and run the following command to build a Docker image:
 
 ```bash
-docker build -t product-list-app .
+docker build -t product-list-app:v1 .
 ```
 - This command builds a Docker image using the Dockerfile in the current directory.
 - The `-t` flag is used to tag the image with a name of your choice. In this case, the image is tagged with the name `product-list-app`.
@@ -118,27 +118,32 @@ docker build -t product-list-app .
 - The build process may take a few minutes to complete. Once it's done, you should see a message indicating that the build was successful.
 - The image is now available locally on your machine. You can view it by running the `docker images` command.
 - This image can be used to create containers that run your Flask application.
+- `:v1` is the version of the image. This is optional, but it's a good practice to tag your images with a version number. This allows you to update or differentiate images, ensuring you can reference specific versions. When you update your image with same name, you can tag it with a new version
+number (e.g., v2). 
+- You can list all the images on your machine using the `docker images` command.
 
 2. Create a Docker Container
 
 Now that you have a Docker image, you can use it to create a container that runs your Flask application. To do this, run the following command:
 
 ```bash
-docker run -d -p 5070:5070 product-list-app
+docker run -d -p 5070:5070 product-list-app:v1
 ```
-- This command creates a container using the `product-list-app` image you built earlier.
+- This command creates a v1 container using the `product-list-app` image you built earlier.
 - The `-d` flag is used to run the container in detached mode (in the background).
 - The `-p` flag is used to map the host port 5070 to the container port 5070. This allows you to access the Flask application running inside the container at http://localhost:5070.
 
 3. Testing the Container
 
-The container is now running in the background. You can view it by running the `docker ps` command.
+The container is now running in the background. You can view it by running the `docker ps` command.  You can also view all the containers on your machine using the `docker ps -a` command.
 - You can test it by accessing it through your web browser at http://localhost:5070. If you followed the example Dockerfile above, your Flask app should be accessible on port 5070.
 - You can also use curl or tools like Postman to make HTTP requests to your Flask API endpoints running in the Docker container.
+- You can start, stop, restart and remove the container using the `docker start`, `docker stop`, `docker restart` and `docker rm` commands respectively with the container ID or name.
+- This container is now a self-contained unit that can be run on any system that supports Docker. This is the power of containerization. You can now share your Docker image with others, and they can run it as a container on their machine.
 
 4. Share Your Docker Image
 
-You can share your Docker image with others by pushing it to a Docker registry like Docker Hub. To do this, you need to create a repository on Docker Hub and then push your image to it. This will enable others to pull your image and run it as a container on their machine. Which establishes the concept of containerization.
+You can share your Docker image with others by pushing it to a Docker registry like Docker Hub or any other Container registry. To do this, you need to create a repository on Docker Hub and then push your image to it. This will enable others to pull your image and run it as a container on their machine. Which establishes the concept of containerization.
 
 First create a repository on Docker Hub GUI. Fill in the details for your repository, including a name (e.g., "product-list-app"), a description, and visibility settings (public or private). Then, log in to Docker Hub from your terminal using the following command:
 
@@ -147,21 +152,31 @@ docker login
 ```
 - This command will prompt you to enter your Docker Hub username and password. Once you've entered them, you should see a message indicating that you've successfully logged in.
 
-Next, before pushing your Docker image to Docker Hub, you need to tag it with the repository name you created. Use the following command to tag your image:
+Next, before pushing your Docker image to Docker Hub, you need to tag it with the repository name you created. 
+Tagging is especially useful when you want to update or differentiate images, ensuring you can reference specific versions.
+
+Use the following command to tag your image:
 
 ```bash
-docker tag product-list-app <your-docker-hub-username>/product-list-app
+docker tag product-list-app:v1 <your-docker-hub-username>/product-list-app:v1
 ```
 
 - This command tags your Docker image with the name of your Docker Hub username and the name of the repository you created earlier.
+- The first part is the name of the image you want to tag with its version. Then include the dockerhub username and the last part is the name of the repository you created on Docker Hub, with the version number you want to tag it with.
 
 You can now push your Docker image to Docker Hub using the following command:
 
 ```bash
-docker push <your-docker-hub-username>/product-list-app
+docker push <your-docker-hub-username>/product-list-app:v1
 ```
 
-- This command pushes your Docker image to Docker Hub. Once the push is complete, you should see a message indicating that the push was successful.
+- This command pushes your Docker image to Docker Hub specifying the intended repository with its version. Once the push is complete, you should see a message indicating that the push was successful.
+
+You can also push your Docker image to Docker Hub without tagging it. To do this, use the following command:
+
+```bash
+docker push <your-docker-hub-username>/repo-name/image-name:tag
+```
 
 You can now view your Docker image on Docker Hub. You can also pull it from Docker Hub and run it as a container on your machine.
 
@@ -170,12 +185,12 @@ You can now view your Docker image on Docker Hub. You can also pull it from Dock
 To pull your Docker image from Docker Hub, use the following command:
 
 ```bash
-docker pull <your-docker-hub-username>/product-list-app
+docker pull <the-docker-hub-username>/image-name:tag
 ```
 
-- This command pulls your Docker image from Docker Hub and saves it locally on your machine.
+- This command pulls a Docker image from Docker Hub and saves it locally on your machine.
 
-You can now run your Docker image as a container using the following command:
+You can now run the Docker image as a container using the following command:
 
 ```bash
 docker run -d -p 5070:5070 <your-docker-hub-username>/product-list-app
