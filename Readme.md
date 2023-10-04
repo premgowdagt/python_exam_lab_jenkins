@@ -16,6 +16,8 @@ A step-by-step guide to creating a Flask web application and containerizing it w
   - [Build a Docker Image](#build-a-docker-image)
   - [Create a Docker Container](#create-a-docker-container)
 - [Testing the Container](#testing-the-container)
+  - [Share Your Docker Image](#share-your-docker-image)
+  - [Pulling and Running the Docker Image](#pulling-and-running-the-docker-image)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -96,8 +98,10 @@ The application will be accessible at http://localhost:5070.
 
 ## Containerization with Docker
 
+### Create a Dockerfile
+
 To containerize the flask application, a Dockerfile file has to be created in the project directory.
-This Dockerfile:
+This Dockerfile [Dockerfile](Dockerfile) :
 - Uses the official Python 3.9 image as the base image.
 - Sets the working directory to /app in the container.
 - Copies the current directory (including your Flask application code) into the container.
@@ -105,7 +109,7 @@ This Dockerfile:
 - Exposes port 5070 (the port your Flask app is running on).
 - Specifies the command to run your Flask application.
 
-1. Build a Docker Image
+### Build a Docker Image
 
 In your terminal, navigate to the directory containing your Dockerfile and run the following command to build a Docker image:
 
@@ -122,7 +126,7 @@ docker build -t product-list-app:v1 .
 number (e.g., v2). 
 - You can list all the images on your machine using the `docker images` command.
 
-2. Create a Docker Container
+### Create a Docker Container
 
 Now that you have a Docker image, you can use it to create a container that runs your Flask application. To do this, run the following command:
 
@@ -133,7 +137,7 @@ docker run -d -p 5070:5070 product-list-app:v1
 - The `-d` flag is used to run the container in detached mode (in the background).
 - The `-p` flag is used to map the host port 5070 to the container port 5070. This allows you to access the Flask application running inside the container at http://localhost:5070.
 
-3. Testing the Container
+## Testing the Container
 
 The container is now running in the background. You can view it by running the `docker ps` command.  You can also view all the containers on your machine using the `docker ps -a` command.
 - You can test it by accessing it through your web browser at http://localhost:5070. If you followed the example Dockerfile above, your Flask app should be accessible on port 5070.
@@ -141,7 +145,7 @@ The container is now running in the background. You can view it by running the `
 - You can start, stop, restart and remove the container using the `docker start`, `docker stop`, `docker restart` and `docker rm` commands respectively with the container ID or name.
 - This container is now a self-contained unit that can be run on any system that supports Docker. This is the power of containerization. You can now share your Docker image with others, and they can run it as a container on their machine.
 
-4. Share Your Docker Image
+### Share Your Docker Image
 
 You can share your Docker image with others by pushing it to a Docker registry like Docker Hub or any other Container registry. To do this, you need to create a repository on Docker Hub and then push your image to it. This will enable others to pull your image and run it as a container on their machine. Which establishes the concept of containerization.
 
@@ -180,7 +184,7 @@ docker push <your-docker-hub-username>/repo-name/image-name:tag
 
 You can now view your Docker image on Docker Hub. You can also pull it from Docker Hub and run it as a container on your machine.
 
-5. Pulling and Running the Docker Image
+### Pulling and Running the Docker Image
 
 To pull your Docker image from Docker Hub, use the following command:
 
