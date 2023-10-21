@@ -15,9 +15,9 @@ A step-by-step guide to creating a Flask web application and containerizing it w
   - [Create a Dockerfile](#create-a-dockerfile)
   - [Build a Docker Image](#build-a-docker-image)
   - [Create a Docker Container](#create-a-docker-container)
-- [Testing the Container](#testing-the-container)
-  - [Share Your Docker Image](#share-your-docker-image)
-  - [Pulling and Running the Docker Image](#pulling-and-running-the-docker-image)
+  - [Testing the Container](#testing-the-container)
+- [Share Your Docker Image](#share-your-docker-image)
+- [Pulling and Running the Docker Image](#pulling-and-running-the-docker-image)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -137,7 +137,7 @@ docker run -d -p 5070:5070 product-list-app:v1
 - The `-d` flag is used to run the container in detached mode (in the background).
 - The `-p` flag is used to map the host port 5070 to the container port 5070. This allows you to access the Flask application running inside the container at http://localhost:5070.
 
-## Testing the Container
+### Testing the Container
 
 The container is now running in the background. You can view it by running the `docker ps` command.  You can also view all the containers on your machine using the `docker ps -a` command.
 - You can test it by accessing it through your web browser at http://localhost:5070. If you followed the example Dockerfile above, your Flask app should be accessible on port 5070.
@@ -145,7 +145,7 @@ The container is now running in the background. You can view it by running the `
 - You can start, stop, restart and remove the container using the `docker start`, `docker stop`, `docker restart` and `docker rm` commands respectively with the container ID or name.
 - This container is now a self-contained unit that can be run on any system that supports Docker. This is the power of containerization. You can now share your Docker image with others, and they can run it as a container on their machine.
 
-### Share Your Docker Image
+## Share Your Docker Image
 
 You can share your Docker image with others by pushing it to a Docker registry like Docker Hub or any other Container registry. To do this, you need to create a repository on Docker Hub and then push your image to it. This will enable others to pull your image and run it as a container on their machine. Which establishes the concept of containerization.
 
@@ -184,7 +184,7 @@ docker push <your-docker-hub-username>/repo-name/image-name:tag
 
 You can now view your Docker image on Docker Hub. You can also pull it from Docker Hub and run it as a container on your machine.
 
-### Pulling and Running the Docker Image
+## Pulling and Running the Docker Image
 
 To pull your Docker image from Docker Hub, use the following command:
 
