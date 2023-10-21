@@ -92,7 +92,7 @@ Start the Flask application:
 python3 product_list_app.py
 ```
 
-The application will be accessible at http://localhost:5070.
+The application will be accessible at http://localhost:5070. You can test it by accessing the API endpoints through your web browser or using tools like curl or Postman. You can also use the [Swagger UI](https://swagger.io/tools/swagger-ui/) to test the API endpoints.  
 
 
 
