@@ -9,5 +9,5 @@ spec:
     - protocol: TCP
       port: 80            # External port accessible from within the cluster
       targetPort: 5000     # Port in the container
-      nodePort: 30080      # Specific NodePort on the node (optional; Kubernetes will assign one if omitted)
+            # Specific NodePort on the node (optional; Kubernetes will assign one if omitted)
   type: NodePort
